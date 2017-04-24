@@ -1,0 +1,28 @@
+{
+  "name": "ud-registration-service",
+  "version": "1.0.0",
+  "description": "United Designers application and registeration microservice",
+  "main": "handler.js",
+  "scripts": {
+    "test": "eslint **.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UnitedDesigners/registration-service.git"
+  },
+  "author": "George Sumpster <gsumpster@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UnitedDesigners/registration-service/issues"
+  },
+  "homepage": "https://github.com/UnitedDesigners/registration-service#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "sinon": "^2.1.0"
+  },
+  "dependencies": {
+    "slack": "^8.3.0",
+    "validator": "^7.0.0"
+  }
+}
