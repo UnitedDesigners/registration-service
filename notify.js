@@ -18,6 +18,9 @@ module.exports = {
                 }
             });
         });
+    },
+    error: function(err) {
+        slack.chat.postMessage({token: process.env.SLACK_TOKEN, channel: 'bot-debug', text: `An error has occurred\n ${err.message}`});
     }
 };
 
@@ -40,13 +43,17 @@ function constructMessage(formData) {
                     value: formData.field,
                     short: true
                 }, {
+                    title: 'Location',
+                    value: formData.location,
+                    short: true
+                }, {
                     title: 'Portfolio',
                     value: formData.portfolio,
                     short: true
                 }, {
                     title: 'Comments',
                     value: formData.comments,
-                    short: true
+                    short: false
                 }
             ]
         }
