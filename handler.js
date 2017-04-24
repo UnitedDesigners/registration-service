@@ -5,7 +5,7 @@ var application = require('./application');
 
 
 exports.handler = function(evt, cxt, cb) {
-    if (!validator.isEmpty(evt.name) && validator.isEmail(evt.email)) {
+    if (validateForm(evt)) {
         application.saveApplication(evt)
           .then(notify.notifySlack)
           .then(() => {cb(null, 'Success');})
@@ -17,3 +17,11 @@ exports.handler = function(evt, cxt, cb) {
         cb(new Error('Invalid Request'));
     }
 };
+
+function validateForm(form) {
+    return !validator.isEmpty(form.name)
+      && validator.isEmail(form.email)
+      && !validator.isEmpty(form.location)
+      && !validator.isEmpty(form.field)
+      && !validator.isEmpty(form.comments);
+}
