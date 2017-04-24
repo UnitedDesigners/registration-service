@@ -1,5 +1,4 @@
 var AWS = require('aws-sdk');
-var notify = require('./notify');
 
 AWS.config.update({region: 'us-west-2'});
 
@@ -14,11 +13,9 @@ module.exports = {
 
         return new Promise((resolve, reject) => {
             docClient.put(params, function(err) {
-                if (err) {
+                if (err)
                     reject(err);
-                } else {
-                    resolve(formData);
-                }
+                resolve(formData);
             });
         });
     }
