@@ -19,7 +19,12 @@ exports.handler = function(evt, cxt, cb) {
 };
 
 function validateForm(form) {
-    return !validator.isEmpty(form.name)
+    return form.name
+      && form.email
+      && form.location 
+      && form.field
+      && form.comments
+      && !validator.isEmpty(form.name)
       && validator.isEmail(form.email)
       && !validator.isEmpty(form.location)
       && !validator.isEmpty(form.field)
