@@ -11,7 +11,8 @@ module.exports = {
         var params = {
             TableName: 'UnitedDesigners-Applications',
             Item: formData,
-            ConditionExpression: 'attribute_not_exists(name)'
+            ConditionExpression: 'attribute_not_exists(#n)',
+            ExpressionAttributeNames: {'#n': 'name'}
         };
 
         return new Promise((resolve, reject) => {
