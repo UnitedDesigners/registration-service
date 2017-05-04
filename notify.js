@@ -5,7 +5,7 @@ module.exports = {
         return new Promise((resolve, reject) => {
             slack.chat.postMessage({
                 token: process.env.SLACK_TOKEN,
-                channel: 'applications',
+                channel: 'bot-debug',
                 text: '',
                 attachments: constructMessage(formData)
             }, (err, data) => {
@@ -54,6 +54,22 @@ function constructMessage(formData) {
                     title: 'Comments',
                     value: formData.comments,
                     short: false
+                }
+            ],
+            actions: [
+                {
+                    'name': 'application',
+                    'text': 'Accept',
+                    'style': 'primary',
+                    'type': 'button',
+                    'value': 'accept',
+                },
+                {
+                    'name': 'application',
+                    'text': 'Deny',
+                    'style': 'danger',
+                    'type': 'button',
+                    'value': 'deny',
                 }
             ]
         }

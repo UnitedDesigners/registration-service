@@ -8,7 +8,7 @@ exports.handler = function(evt, cxt, cb) {
     if (validateForm(evt)) {
         application.saveApplication(evt)
           .then(notify.notifySlack)
-          .then(() => {cb(null, 'Success');})
+          .then(() => {cb(null, {'message': 'Success'});})
           .catch((err) => {
               notify.error(err);
               cb(new Error(err.message));
@@ -21,7 +21,7 @@ exports.handler = function(evt, cxt, cb) {
 function validateForm(form) {
     return form.name
       && form.email
-      && form.location 
+      && form.location
       && form.field
       && form.comments
       && !validator.isEmpty(form.name)
