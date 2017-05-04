@@ -7,11 +7,11 @@ var docClient = new AWS.DynamoDB.DocumentClient();
 module.exports = {
     saveApplication: function(formData) {
         formData.status = false;
-        
+
         var params = {
             TableName: 'UnitedDesigners-Applications',
             Item: formData,
-            ConditionExpression: 'attribute_not_exists(Id)'
+            ConditionExpression: 'attribute_not_exists(name)'
         };
 
         return new Promise((resolve, reject) => {
