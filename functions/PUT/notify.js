@@ -29,7 +29,7 @@ function constructMessage(formData) {
         {
             fallback: 'New Application Recieved!',
             title: 'Application to United Designers',
-            callback_id: formData.name,
+            callback_id: formData.email,
             fields: [
                 {
                     title: 'Name',
