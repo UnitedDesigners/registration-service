@@ -10,8 +10,12 @@ exports.handler = function(evt, cxt, cb) {
           .then(notify.notifySlack)
           .then(() => {cb(null, {'message': 'Success'});})
           .catch((err) => {
-              notify.error(err);
-              cb(new Error(err.message));
+              if(err.message === 'The conditional request failed') {
+                  cb(new Error('Duplicate Request'));
+              } else {
+                  notify.error(err);
+                  cb(new Error(err.message));
+              }
           });
     } else {
         cb(new Error('Invalid Request'));
