@@ -1,36 +1,15 @@
-var validator = require('validator');
-
-var notify = require('./notify');
-var application = require('./application');
-
-
 exports.handler = function(evt, cxt, cb) {
-    if (validateForm(evt)) {
-        application.saveApplication(evt)
-          .then(notify.notifySlack)
-          .then(() => {cb(null, {'message': 'Success'});})
-          .catch((err) => {
-              if(err.message === 'The conditional request failed') {
-                  cb(new Error('Duplicate Request'));
-              } else {
-                  notify.error(err);
-                  cb(new Error(err.message));
-              }
-          });
+    if (evt) {
+        let org_attachments = evt.original_message.attachments;
+        org_attachments[0].actions = [];
+        if (evt.actions[0].value === 'accept') {
+            org_attachments[1] = {'fallback': `${evt.user.name} has accepted the application from ${evt.callback_id}`, text: `${evt.user.name} has accepted the application from ${evt.callback_id}`};
+            cb(null, {'response_type': 'in_channel','replace_original': true, attachments: org_attachments});
+        } else {
+            org_attachments[1] = {'fallback': `${evt.user.name} has denied the application from ${evt.callback_id}`, text: `${evt.user.name} has denied the application from ${evt.callback_id}`};
+            cb(null, {'response_type': 'in_channel','replace_original': true, attachments: org_attachments});
+        }
     } else {
-        cb(new Error('Invalid Request'));
+        cb(new Error());
     }
 };
-
-function validateForm(form) {
-    return form.name
-      && form.email
-      && form.location
-      && form.field
-      && form.comments
-      && !validator.isEmpty(form.name)
-      && validator.isEmail(form.email)
-      && !validator.isEmpty(form.location)
-      && !validator.isEmpty(form.field)
-      && !validator.isEmpty(form.comments);
-}
