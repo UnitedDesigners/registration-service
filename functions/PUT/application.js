@@ -7,6 +7,7 @@ var docClient = new AWS.DynamoDB.DocumentClient();
 module.exports = {
     saveApplication: function(formData) {
         formData.status = false;
+        formData.details = {action: '', by: ''};
 
         var params = {
             TableName: 'UnitedDesigners-Applications',

@@ -10,8 +10,8 @@ module.exports = {
         var params = {
             TableName: 'UnitedDesigners-Applications',
             Key: {email},
-            UpdateExpression: 'set status = :s, details = :d',
-            ExpressionAttributeNames: {':s': 'true', ':d': {result: action, 'by': user}}
+            UpdateExpression: 'set #sA = #s, details = #d',
+            ExpressionAttributeNames: {'#sA': 'status', '#s': 'true', '#d': {result: action, by: user}}
         };
 
         return new Promise((resolve, reject) => {
