@@ -9,15 +9,18 @@ module.exports = {
 
         var params = {
             TableName: 'UnitedDesigners-Applications',
-            Key: {email},
-            UpdateExpression: 'set #sA = #s, details = #d',
-            ExpressionAttributeNames: {'#sA': 'status', '#s': 'true', '#d': {result: action, by: user}}
+            Key: {email: email},
+            UpdateExpression: 'set #sA = :status, #dR = :action, #dB = :by',
+            ExpressionAttributeNames: {'#sA': 'status', '#dR': 'details.action', '#dB': 'details.by'},
+            ExpressionAttributeValues: {':status': 'true', ':action': action, ':by': user}
         };
 
         return new Promise((resolve, reject) => {
             docClient.update(params, function(err) {
-                if (err)
+                if (err){
+                    console.log(err);
                     reject(err);
+                }
             });
         });
     }

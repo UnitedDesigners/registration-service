@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/UnitedDesigners/registration-service#readme",
   "dependencies": {
-    "tiny-json-http": "^5.1.0"
+    "request": "^2.81.0"
   }
 }
